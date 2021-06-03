@@ -54,10 +54,10 @@ export default {
 						v-for="(photo, index) in photos"
 						:key="index"
 						class="mx-auto max-w-lg flex flex-col justify-center items-center cursor-pointer"
-						@click="open_dialog(`${base_url}${photo.image.file}`)"
+						@click="open_dialog(photo.image.file)"
 					>
 						<nuxt-img
-							:src="base_url + photo.image.file"
+							:src="photo.image.file"
 							loading="lazy"
 							class="w-full h-64 rounded-lg bg-cover bg-center"
 							:alt="photo.image.title + 'art'"
