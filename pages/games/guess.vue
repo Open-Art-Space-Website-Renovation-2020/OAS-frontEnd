@@ -89,7 +89,7 @@ export default {
 				`/api/images/${card.image}`
 			)
 			// console.log(card_image.meta.download_url)
-			card.image = this.base_urls + card_image.meta.download_url
+			card.image = card_image.meta.download_url
 		}
 		this.newsfg = cards
 		this.wordArray = this.shuffle(

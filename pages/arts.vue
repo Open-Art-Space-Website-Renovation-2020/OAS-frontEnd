@@ -92,10 +92,7 @@ export default {
 					</h3>
 				</template>
 				<template #img>
-					<img
-						:src="`${base_urls}` + art.image.file"
-						:alt="art.eng_title + 'art'"
-					/>
+					<img :src="art.image.file" :alt="art.eng_title + 'art'" />
 				</template>
 				<template #text>
 					<p
@@ -110,7 +107,7 @@ export default {
 					<vs-button
 						danger
 						icon
-						@click="print_image(`${base_urls}${art.image.file}`)"
+						@click="print_image(art.image.file)"
 					>
 						<i class="bx bx-printer"></i>
 					</vs-button>
@@ -118,12 +115,7 @@ export default {
 						warn
 						primary
 						icon
-						@click="
-							download_image(
-								`${base_urls}${art.image.file}`,
-								art.eng_title
-							)
-						"
+						@click="download_image(art.image.file, art.eng_title)"
 					>
 						<i class="bx bx-download"></i>
 					</vs-button>
@@ -131,7 +123,7 @@ export default {
 						shadow
 						primary
 						icon
-						@click="open_dialog(`${base_urls}${art.image.file}`)"
+						@click="open_dialog(art.image.file)"
 					>
 						<i class="bx bx-zoom-in"></i>
 					</vs-button>

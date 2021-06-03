@@ -37,7 +37,8 @@ export default {
 		this.en_text = response_home.items[0].eng_description
 		this.home_title = response_home.items[0].title
 		for (const item of response) {
-			images = [...images, `${this.base_url}${item.original_image.file}`]
+			// images = [...images, `${this.base_url}${item.original_image.file}`]
+			images = [...images, item.original_image.file]
 		}
 		this.eng_word.forEach((value, index) => {
 			const obj = {}
@@ -108,7 +109,7 @@ export default {
 					v-else
 					class="w-full h-full rounded-3xl"
 					quality="50"
-					:src="`${base_url}` + home_image"
+					:src="home_image"
 				/>
 				<p
 					class="mt-3 text-xl md:text-2xl lg:text-3xl xl:text-4xl capitalize text-gray-500 font-black"

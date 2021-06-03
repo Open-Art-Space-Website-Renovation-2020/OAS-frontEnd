@@ -121,7 +121,7 @@ export default {
 				<OptionsPanel
 					v-show="!playing"
 					ref="optionsPane"
-					:image="base_urls + detail_puzzle.image.file"
+					:image="detail_puzzle.image.file"
 					:horizontal="horizontal"
 					:vertical="vertical"
 					@gameStart="start"

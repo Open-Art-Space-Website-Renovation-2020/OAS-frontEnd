@@ -42,7 +42,7 @@ export default {
 		this.ar_text = this.detail_jigsaw.ar_description
 		this.en_text = this.detail_jigsaw.eng_description
 		await this.load_game_data()
-		this.image = this.base_urls + this.detail_jigsaw.image.file
+		this.image = this.detail_jigsaw.image.file
 	},
 	methods: {
 		start() {

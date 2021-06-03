@@ -2,7 +2,7 @@ import { StoreState } from "@/types"
 
 export const state = () => ({
 	language: "en",
-	backend_url: "http://127.0.0.1:8000",
+	backend_url: "https://oas-backend.herokuapp.com",
 })
 
 export const mutations = {

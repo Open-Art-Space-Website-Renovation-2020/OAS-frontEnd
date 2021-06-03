@@ -227,7 +227,7 @@ export default {
 
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
 	axios: {
-		baseURL: "http://127.0.0.1:8000", // Used as fallback if no runtime config is provided
+		baseURL: "https://oas-backend.herokuapp.com", // Used as fallback if no runtime config is provided
 	},
 
 	publicRuntimeConfig: {
@@ -249,7 +249,7 @@ export default {
 	},
 	image: {
 		domains: [
-			"https://open-space-art.herokuapp.com",
+			"https://oas-backend.herokuapp.com/",
 			"http://127.0.0.1:8000/",
 			"http://localhost:8000/",
 			"https://content.dropboxapi.com/",

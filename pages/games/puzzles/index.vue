@@ -50,14 +50,10 @@ export default {
 							class="flex flex-col justify-center items-center max-w-sm mx-auto my-8"
 						>
 							<nuxt-img
-								:src="`${base_urls}` + puzzle.image.file"
+								:src="puzzle.image.file"
 								loading="lazy"
 								class="bg-gray-300 h-full w-full rounded-lg shadow-md bg-cover bg-center"
-								:alt="
-									`${base_urls}` +
-									puzzle.eng_title +
-									' puzzle image'
-								"
+								:alt="puzzle.eng_title + ' puzzle image'"
 							/>
 							<div
 								class="w-56 md:w-64 bg-pink-600 -mt-10 shadow-lg rounded-lg overflow-hidden"
