@@ -1,0 +1,10 @@
+{
+    "vetur.validation.style": false,
+    "i18n-ally.localesPaths": [
+        "locales"
+
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    }
+}
