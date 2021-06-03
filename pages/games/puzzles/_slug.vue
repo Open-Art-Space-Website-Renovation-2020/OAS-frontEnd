@@ -25,7 +25,6 @@ export default {
 			init_level = puzzle.level
 		}
 		const base_url = process.env.BASE_URL
-		const image = `${base_url}${detail_puzzle.image.file}`
 		return {
 			detail_puzzle,
 			init_horizontal,
@@ -33,7 +32,6 @@ export default {
 			init_vertical,
 			video_id,
 			base_url,
-			image,
 			slug,
 		}
 	},
@@ -46,7 +44,7 @@ export default {
 			loading: false,
 			base_urls:
 				this.base_url === undefined
-					? "http://127.0.0.1:8000"
+					? this.$store.getters["other/get_url"]
 					: this.base_url,
 		}
 	},

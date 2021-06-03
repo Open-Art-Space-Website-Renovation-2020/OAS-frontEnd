@@ -16,7 +16,7 @@ export default {
 			is_loading: false,
 			base_urls:
 				this.base_url === undefined
-					? "http://127.0.0.1:8000"
+					? this.$store.getters["other/get_url"]
 					: this.base_url,
 
 			gameStage: 0,
