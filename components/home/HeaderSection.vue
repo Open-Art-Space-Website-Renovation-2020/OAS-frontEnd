@@ -75,7 +75,13 @@ export default {
 		<section class="flex flex-col items-center">
 			<div
 				v-if="loading"
-				class="w-12 h-12 border-4 border-hex-f2135d rounded-full loader"
+				class="
+					w-12
+					h-12
+					border-4 border-hex-f2135d
+					rounded-full
+					loader
+				"
 			></div>
 
 			<div v-else class="flex">
@@ -98,11 +104,26 @@ export default {
 			</div>
 
 			<div
-				class="w-10/11 p-8 mt-16 flex flex-col items-center border-8 rounded-3xl"
+				class="
+					w-10/11
+					lg:w-7/11
+					p-8
+					mt-16
+					flex flex-col
+					items-center
+					border-8
+					rounded-3xl
+				"
 			>
 				<div
 					v-if="loading"
-					class="w-12 h-12 border-4 border-hex-f2135d rounded-full loader"
+					class="
+						w-12
+						h-12
+						border-4 border-hex-f2135d
+						rounded-full
+						loader
+					"
 				></div>
 
 				<nuxt-img
@@ -112,7 +133,16 @@ export default {
 					:src="home_image"
 				/>
 				<p
-					class="mt-3 text-xl md:text-2xl lg:text-3xl xl:text-4xl capitalize text-gray-500 font-black"
+					class="
+						mt-3
+						text-xl
+						md:text-2xl
+						lg:text-3xl
+						xl:text-4xl
+						capitalize
+						text-gray-500
+						font-black
+					"
 				>
 					{{ home_title }}
 				</p>
@@ -120,7 +150,14 @@ export default {
 		</section>
 
 		<section
-			class="mt-20 pb-24 flex flex-col items-center text-gray-600 bg-hex-0295da"
+			class="
+				mt-20
+				pb-24
+				flex flex-col
+				items-center
+				text-gray-600
+				bg-hex-0295da
+			"
 		>
 			<div class="-mt-24">
 				<Triangle
@@ -133,17 +170,42 @@ export default {
 			</div>
 
 			<div
-				class="w-10/11 mb-4 flex flex-col items-center p-8 mt-0 border-4 border-pink-500 bg-white rounded-3xl"
+				class="
+					w-10/11
+					mb-4
+					flex flex-col
+					items-center
+					p-8
+					mt-0
+					border-4 border-pink-500
+					bg-white
+					rounded-3xl
+				"
 			>
 				<TextImage text="about" />
 				<div
 					v-if="loading"
-					class="w-12 h-12 mt-10 border-4 border-hex-f2135d rounded-full loader"
+					class="
+						w-12
+						h-12
+						mt-10
+						border-4 border-hex-f2135d
+						rounded-full
+						loader
+					"
 				></div>
 
 				<div v-else>
 					<p
-						class="mt-16 md:text-xl lg:text-2xl xl:text-3xl 2xl:text-6xl tracking-wider leading-7"
+						class="
+							mt-16
+							md:text-xl
+							lg:text-2xl
+							xl:text-3xl
+							2xl:text-6xl
+							tracking-wider
+							leading-7
+						"
 						v-html="$t('dir') === 'ltr' ? en_text : ar_text"
 					></p>
 				</div>
