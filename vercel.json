@@ -16,6 +16,11 @@
   ],
   "routes": [
     { "src": "/_nuxt/.+", "headers": { "Cache-Control": "max-age=31557600" } },
+    { "src": "/img/(.*)", "dest": "/img/$1" },
+    { "src": "/audio/(.*)", "dest": "/audio/$1" },
+    { "src": "/icons/(.*)", "dest": "/icons/$1" },
+    { "src": "/js/(.*)", "dest": "/js/$1" },
+    { "src": "/favicon.ico", "dest": "/favicon.ico" },
     {
       "src": "/sw.js",
       "dest": "/_nuxt/static/sw.js",
