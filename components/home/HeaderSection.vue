@@ -126,10 +126,9 @@ export default {
 					"
 				></div>
 
-				<nuxt-img
+				<img
 					v-else
 					class="w-full h-full rounded-3xl"
-					quality="50"
 					:src="home_image"
 				/>
 				<p

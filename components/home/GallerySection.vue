@@ -56,7 +56,7 @@ export default {
 						class="mx-auto max-w-lg flex flex-col justify-center items-center cursor-pointer"
 						@click="open_dialog(photo.image.file)"
 					>
-						<nuxt-img
+						<img
 							:src="photo.image.file"
 							loading="lazy"
 							class="w-full h-64 rounded-lg bg-cover bg-center"
@@ -67,7 +67,7 @@ export default {
 			</div>
 		</div>
 		<vs-dialog v-model="active" class="bg-transparent" blur>
-			<nuxt-img v-if="zoomed_img" :src="zoomed_img" />
+			<img v-if="zoomed_img" :src="zoomed_img" />
 		</vs-dialog>
 	</section>
 </template>
