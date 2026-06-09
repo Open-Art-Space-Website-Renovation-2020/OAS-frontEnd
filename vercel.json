@@ -34,9 +34,10 @@
     { "src": "/icons/(.*)", "dest": "/icons/$1" },
     { "src": "/js/(.*)", "dest": "/js/$1" },
     { "src": "/favicon.ico", "dest": "/favicon.ico" },
+    { "src": "/icon.png", "dest": "/icon.png" },
     {
       "src": "/sw.js",
-      "dest": "/_nuxt/static/sw.js",
+      "dest": "/sw.js",
       "headers": {
         "cache-control": "public, max-age=43200, immutable",
         "Service-Worker-Allowed": "/"
