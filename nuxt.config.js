@@ -254,6 +254,8 @@ export default {
 			"http://localhost:8000/",
 			"https://content.dropboxapi.com/",
 			"https://dropboxapi.com/",
+			"https://dl.dropboxusercontent.com/",
+			"https://uc.dropboxusercontent.com/",
 		],
 	},
 	googleFonts: {

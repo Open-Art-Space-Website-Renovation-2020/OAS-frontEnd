@@ -1,5 +1,13 @@
 {
   "version": 2,
+  "images": {
+    "domains": [
+      "dl.dropboxusercontent.com",
+      "uc.dropboxusercontent.com",
+      "content.dropboxapi.com"
+    ],
+    "sizes": [320, 420, 768, 1024, 1200]
+  },
   "build": {
     "env": {
       "NODE_OPTIONS": "--openssl-legacy-provider"
