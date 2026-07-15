@@ -6,7 +6,7 @@
     "node": "20.x"
   },
   "scripts": {
-    "dev": "nuxt",
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider nuxt",
     "build": "nuxt build",
     "vercel-build": "NODE_OPTIONS=--openssl-legacy-provider nuxt build",
     "start": "nuxt start",

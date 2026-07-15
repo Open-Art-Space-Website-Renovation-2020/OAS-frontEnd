@@ -587,10 +587,10 @@ export default class FrameComponent extends Vue {
 </template>
 
 <style scoped>
-/* @font-face {
+@font-face {
 	font-family: "Tabshoor";
-	src: url("../../assets/Fonts/Tabshoor.ttf") format("ttf");
-} */
+	src: url("../../assets/Tabshoor/Tabshoor.ttf") format("ttf");
+}
 .st0 {
 	fill: none;
 	font-family: "Tabshoor";
