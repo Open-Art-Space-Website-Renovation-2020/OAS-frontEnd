@@ -36,7 +36,7 @@ export default {
 				<div v-if="!playing" class="w-full mt-4">
 					<div class="flex flex-col items-center">
 						<nuxt-img
-							class="h-full w-full mb-6 rounded-xl"
+							class="h-full w-full max-w-[300px] mb-6 rounded-xl"
 							src="/img/simon_logo.jpg"
 							spinner-color="white"
 						/>

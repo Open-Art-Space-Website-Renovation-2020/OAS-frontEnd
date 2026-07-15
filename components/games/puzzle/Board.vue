@@ -18,6 +18,20 @@ export default {
 				width: 0,
 				height: 0,
 			},
+			imageSize: {
+				width: 0,
+				height: 0,
+			},
+			resizeFrame: null,
+		}
+	},
+	mounted() {
+		window.addEventListener("resize", this.scheduleResize)
+	},
+	destroyed() {
+		window.removeEventListener("resize", this.scheduleResize)
+		if (this.resizeFrame) {
+			window.cancelAnimationFrame(this.resizeFrame)
 		}
 	},
 	computed: {
@@ -25,6 +39,7 @@ export default {
 			return {
 				width: `${this.tileSize.width * this.size.horizontal}px`,
 				height: `${this.tileSize.height * this.size.vertical}px`,
+				gridTemplateColumns: `repeat(${this.size.horizontal}, 1fr)`,
 			}
 		},
 		/**
@@ -113,6 +128,57 @@ export default {
 		},
 	},
 	methods: {
+		scheduleResize() {
+			if (this.resizeFrame) {
+				window.cancelAnimationFrame(this.resizeFrame)
+			}
+
+			this.resizeFrame = window.requestAnimationFrame(() => {
+				this.resizeFrame = null
+				this.resizeBoard()
+			})
+		},
+		resizeBoard() {
+			if (!this.imageSize.width || !this.$refs.board) {
+				return
+			}
+
+			const availableWidth = this.$refs.board.clientWidth
+			if (!availableWidth) {
+				return
+			}
+
+			const boardWidth = Math.min(this.imageSize.width, availableWidth)
+			const scale = boardWidth / this.imageSize.width
+			this.tileSize.width = boardWidth / this.size.horizontal
+			this.tileSize.height =
+				(this.imageSize.height * scale) / this.size.vertical
+			this.updateTileSizes(this.tiles)
+
+			if (backupTiles) {
+				const backup = JSON.parse(backupTiles)
+				this.updateTileSizes(backup)
+				backupTiles = JSON.stringify(backup)
+			}
+		},
+		updateTileSizes(tiles) {
+			const backgroundSize = `${
+				this.tileSize.width * this.size.horizontal
+			}px ${this.tileSize.height * this.size.vertical}px`
+
+			tiles.forEach((tile, index) => {
+				tile.styles.backgroundPositionX = `-${
+					(index % this.size.horizontal) * this.tileSize.width
+				}px`
+				tile.styles.backgroundPositionY = `-${
+					Math.floor(index / this.size.horizontal) *
+					this.tileSize.height
+				}px`
+				tile.styles.backgroundSize = backgroundSize
+				tile.styles.width = `${this.tileSize.width}px`
+				tile.styles.height = `${this.tileSize.height}px`
+			})
+		},
 		sleep(ms) {
 			return new Promise((resolve) => setTimeout(resolve, ms))
 		},
@@ -125,13 +191,13 @@ export default {
 		start({ image, size }) {
 			this.size = size
 			this.image = image
+			backupTiles = null
 			// detect the width and height of the frame
 			const img = new Image()
 			img.onload = () => {
-				// img.width = 500
-				// img.height = 600
-				this.tileSize.width = Math.floor(img.width / size.horizontal)
-				this.tileSize.height = Math.floor(img.height / size.vertical)
+				this.imageSize.width = img.naturalWidth || img.width
+				this.imageSize.height = img.naturalHeight || img.height
+				this.resizeBoard()
 				this.generateTiles()
 				this.shuffleTiles()
 			}
@@ -147,6 +213,7 @@ export default {
 					styles: {
 						background:
 							i === 0 ? "transparent" : `url(${this.image})`,
+						backgroundRepeat: "no-repeat",
 						backgroundPositionX: `-${
 							(i % this.size.horizontal) * this.tileSize.width
 						}px`,
@@ -162,6 +229,7 @@ export default {
 					isEmpty: i === 0,
 				})
 			}
+			this.updateTileSizes(this.tiles)
 		},
 		/**
 		 * Shuffle the generated tiles.
@@ -240,18 +308,15 @@ export default {
 </script>
 
 <template>
-	<div
-		style="
-			border: 80px solid black;
-			border-image: url('/img/oas-frame.png') 65;
-		"
-	>
+	<div ref="board" class="puzzle-board">
 		<div class="frame-wrapper" :style="frameSize">
 			<p v-if="valid" class="win">{{ $t("win") }}</p>
 			<div
 				v-if="showingOriginal && image"
 				class="original"
-				:style="{ background: `url(${image})` }"
+				:style="{
+					background: `url(${image}) center / 100% 100% no-repeat`,
+				}"
 			></div>
 			<div class="frame" :style="frameSize">
 				<Tile
@@ -264,10 +329,10 @@ export default {
 			</div>
 		</div>
 
-		<div class="flex items-end justify-between mt-8 text-black">
+		<div class="puzzle-controls mt-8 text-black">
 			<!-- SHOW ORIGINAL -->
 			<div
-				class="mr-12 mt-12 relative select-none cursor-pointer"
+				class="puzzle-control relative select-none cursor-pointer"
 				@click="showingOriginal = !showingOriginal"
 			>
 				<img class="w-35 h-35" src="@/assets/img/button4.png" />
@@ -279,7 +344,7 @@ export default {
 			</div>
 			<!-- RESHUFFLE -->
 			<div
-				class="mr-12 mt-12 relative select-none cursor-pointer"
+				class="puzzle-control relative select-none cursor-pointer"
 				@click="shuffleTiles"
 			>
 				<img class="w-35 h-35" src="@/assets/img/button4.png" />
@@ -291,7 +356,7 @@ export default {
 			</div>
 			<!-- RESET -->
 			<div
-				class="mr-12 mt-12 relative select-none cursor-pointer"
+				class="puzzle-control relative select-none cursor-pointer"
 				@click="reset"
 			>
 				<img class="w-35 h-35" src="@/assets/img/button4.png" />
@@ -303,7 +368,7 @@ export default {
 			</div>
 			<!-- NEW GAME -->
 			<div
-				class="mr-12 mt-12 relative select-none cursor-pointer"
+				class="puzzle-control relative select-none cursor-pointer"
 				@click="restart"
 			>
 				<img class="w-35 h-35" src="@/assets/img/button4.png" />
@@ -318,6 +383,14 @@ export default {
 </template>
 
 <style>
+.puzzle-board {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 1310px;
+	border: clamp(12px, 6vw, 80px) solid black;
+	border-image: url("/img/oas-frame.png") 65;
+}
+
 .frame-wrapper {
 	margin: 0 auto;
 	position: relative;
@@ -350,10 +423,20 @@ export default {
 }
 
 .frame {
-	display: flex;
-	flex-wrap: wrap;
+	display: grid;
 	background: #612211 url("/img/puzzle/board.jpeg");
 	background-size: cover;
+}
+
+.puzzle-controls {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+	justify-items: center;
+	gap: 1rem;
+}
+
+.puzzle-control {
+	margin-top: 1rem;
 }
 
 .controls {

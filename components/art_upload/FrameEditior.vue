@@ -352,7 +352,7 @@ export default {
 			</vs-input>
 			<vs-select
 				v-model="country"
-				color="danger"
+				color="#ec4899"
 				style="direction: ltr"
 				:label-placeholder="$t('country')"
 			>
@@ -368,7 +368,7 @@ export default {
 			</vs-select>
 			<vs-select
 				v-model="message"
-				color="danger"
+				color="#ec4899"
 				style="direction: ltr"
 				:label-placeholder="$t('message')"
 			>

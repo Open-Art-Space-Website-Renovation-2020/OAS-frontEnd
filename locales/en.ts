@@ -11,7 +11,7 @@ export default async () => {
 		contact: "Contact Us",
 		fill_contact: "Fill up the form below to send us a message.",
 		upload: "Upload Artwork",
-		block: "Block",
+		blog: "Blog",
 		404: "404",
 		oops: "Oops. Nothing here...",
 		"Go Home": "Go Home",

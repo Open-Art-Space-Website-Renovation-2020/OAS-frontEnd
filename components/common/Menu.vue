@@ -23,7 +23,7 @@ export default class MenuComponent extends Vue {
 			<vs-button
 				flat
 				class="font-black text-4xl focus:outline-none"
-				color="danger"
+				color="#ec4899"
 				transparent
 				><i class="bx bx-dots-vertical-rounded"></i
 			></vs-button>

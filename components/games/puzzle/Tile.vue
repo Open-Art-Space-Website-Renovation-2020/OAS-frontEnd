@@ -20,6 +20,8 @@ export default {
 
 <style>
 .tile {
+	box-sizing: border-box;
+	min-width: 0;
 	border: 1px solid gray;
 }
 

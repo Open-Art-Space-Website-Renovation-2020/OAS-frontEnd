@@ -47,7 +47,7 @@ export default class GameSectionComponent extends Vue {
 			img: "/img/draw_logo.jpg",
 		},
 		{
-			name: "block",
+			name: "blog",
 			color: "a6ce39",
 			route: "/",
 			img: "/img/coming_soon_logo.jpg",

@@ -1,5 +1,5 @@
 <template>
-	<div class="text-2xl lg:text-sm xl:text-2xl text-pink-600 font-black">
+	<div class="text-2xl lg:text-sm xl:text-2xl text-pink-500 font-black">
 		<a
 			href="#"
 			style="font-family: 'Cairo', sans-serif"

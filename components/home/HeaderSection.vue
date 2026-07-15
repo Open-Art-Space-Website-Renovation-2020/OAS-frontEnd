@@ -111,7 +111,7 @@ export default {
 					mt-16
 					flex flex-col
 					items-center
-					border-8
+					border-8 border-pink-500
 					rounded-3xl
 				"
 			>

@@ -302,7 +302,7 @@ export default {
 				<div v-if="!playing" class="w-full mt-4">
 					<div class="flex flex-col items-center">
 						<nuxt-img
-							class="h-full w-full mb-6 rounded-xl"
+							class="h-full w-full max-w-[300px] mb-6 rounded-xl"
 							src="/img/card_logo.jpg"
 							spinner-color="white"
 						/>
@@ -325,7 +325,7 @@ export default {
 
 				<div
 					v-else
-					class="w-full md:w-10/11 md:p-8"
+					class="w-full md:w-10/11 p-4 md:p-8"
 					style="
 						border: 20px solid black;
 						border-image: url('/img/oas-frame.png') 65;
@@ -346,13 +346,11 @@ export default {
 					</div>
 					<!-- Counters End -->
 
-					<div
-						class="w-full md:w-10/11 mt-50px flex flex-col items-center space-y-10 md:(grid grid-cols-2 gap-y-15 gap-x-36 space-y-0) lg:(grid grid-cols-3 gap-y-20 gap-x-35) xl:(grid grid-cols-4 gap-y-20 gap-x-40)"
-					>
+					<div class="card-grid">
 						<div
 							v-for="(image, index) in images"
 							:key="index"
-							class="relative h-45 w-43.75 card cursor-pointer"
+							class="relative w-full card cursor-pointer"
 						>
 							<div
 								class="w-full h-full absolute flex items-center justify-center bg-black shadow-xl transition duration-500 ease-in-out card-back card-face"
@@ -360,24 +358,24 @@ export default {
 								<img
 									v-if="level === 'one'"
 									class="w-full h-full"
-									src="/img/cards/a.jpg"
+									src="/img/cards/1.png"
 								/>
 								<img
 									v-if="level === 'two'"
 									class="w-full h-full"
-									src="/img/cards/b.jpg"
+									src="/img/cards/2.png"
 								/>
 								<img
 									v-if="level === 'three'"
 									class="w-full h-full"
-									src="/img/cards/d.jpg"
+									src="/img/cards/3.png"
 								/>
 							</div>
 							<div
 								class="card-front card-face transition duration-500 ease-in-out"
 							>
 								<img
-									class="relative w-full h-26vh transition duration-100 ease-in-out card-value cursor-default"
+									class="w-full h-full object-cover transition duration-100 ease-in-out card-value cursor-default"
 									:src="image"
 								/>
 							</div>
@@ -414,12 +412,37 @@ export default {
 </template>
 
 <style scoped>
+.card-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: clamp(0.75rem, 3vw, 2.5rem);
+	width: 100%;
+	max-width: 72rem;
+	margin: 50px auto 0;
+}
+
 .card {
-	/* width: 175px; */
+	aspect-ratio: 3 / 4;
+	min-width: 0;
 }
 
 .card-face {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
 	backface-visibility: hidden;
+}
+
+@media (min-width: 640px) {
+	.card-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1024px) {
+	.card-grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
 }
 
 .card.visible .card-back {

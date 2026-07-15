@@ -62,21 +62,21 @@ export default {
 
 				<div class="flex flex-col items-center mb-3">
 					<div
-						class="p-8 grid grid-rows-1 gap-y-10 md:(grid-cols-2 gap-6) lg:(grid-cols-3 gap-10) capitalize"
+						class="p-8 grid grid-rows-1 gap-y-16 md:(grid-cols-2 gap-14) lg:(grid-cols-3 gap-10) capitalize"
 					>
 						<div
 							v-for="(link, index) in links"
 							:key="index"
-							class="flex flex-col justify-center items-center max-w-sm mx-auto my-8"
+							class="flex flex-col justify-center items-center max-w-sm mx-auto"
 						>
 							<img
 								:src="link.image"
 								loading="lazy"
-								class="bg-gray-300 h-64 w-full rounded-lg shadow-md bg-cover bg-center"
+								class="bg-transparent h-64 w-64 rounded-lg shadow-md bg-cover bg-center"
 								:alt="link.name + 'game'"
 							/>
 							<div
-								class="w-56 md:w-64 bg-pink-600 -mt-10 shadow-lg rounded-lg overflow-hidden"
+								class="w-64 bg-pink-600 -mt-10 shadow-lg rounded-lg overflow-hidden"
 							>
 								<div
 									class="py-2 text-center font-bold uppercase tracking-wide text-white"

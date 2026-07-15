@@ -7,7 +7,7 @@
 			<vs-button
 				transparent
 				to="/"
-				color="danger"
+				color="#ec4899"
 				flat
 				class="focus:outline-none"
 			>

@@ -24,7 +24,7 @@ export default class LinksComponent extends Vue {
 			flat
 			:to="link.route"
 			:active="$route.path.includes(link.name)"
-			color="danger"
+			color="#ec4899"
 			transparent
 			style="font-family: 'Cairo', sans-serif"
 			class="font-black lg:text-sm xl:text-2xl focus:outline-none"

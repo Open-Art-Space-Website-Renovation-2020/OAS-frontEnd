@@ -10,6 +10,7 @@ export default {
 			croppedImage: false,
 			canvasWidth: 1000,
 			canvasHeight: 1000,
+			resizeFrame: null,
 		}
 	},
 	head: {
@@ -17,6 +18,9 @@ export default {
 	},
 	destroyed() {
 		window.removeEventListener("resize", this.resize_detect)
+		if (this.resizeFrame) {
+			window.cancelAnimationFrame(this.resizeFrame)
+		}
 	},
 	mounted() {
 		window.addEventListener("resize", this.resize_detect)
@@ -36,31 +40,55 @@ export default {
 	},
 	methods: {
 		resize_detect() {
-			if (window.innerWidth === 320) {
-				this.canvasWidth = 200
+			if (this.resizeFrame) {
+				window.cancelAnimationFrame(this.resizeFrame)
 			}
-			if (window.innerWidth === 375) {
-				this.canvasWidth = 250
-			}
-			if (window.innerWidth === 425) {
-				this.canvasWidth = 295
-			}
-			if (window.innerWidth === 768) {
-				this.canvasWidth = 610
-			}
-			if (window.innerWidth === 1024) {
-				this.canvasWidth = 840
-			}
-			if (window.innerWidth === 1366) {
-				this.canvasWidth = 1100
-			}
-			if (window.innerWidth === 1440) {
-				this.canvasWidth = 1100
-			}
-			if (window.innerWidth === 2560) {
-				this.canvasWidth = 1150
-			}
-			this.currentActiveMethod = null
+
+			this.resizeFrame = window.requestAnimationFrame(() => {
+				this.resizeFrame = null
+				const container = this.$refs.canvasContainer
+				const width = Math.min(
+					1150,
+					Math.max(200, Math.floor(container.clientWidth))
+				)
+				const height = width
+				const editor = this.$refs.editor
+				const canvas = editor && editor.canvas
+
+				if (
+					width === this.canvasWidth &&
+					height === this.canvasHeight
+				) {
+					return
+				}
+
+				if (canvas) {
+					const scaleX = width / canvas.getWidth()
+					const scaleY = height / canvas.getHeight()
+
+					canvas.getObjects().forEach((object) => {
+						object.set({
+							left: object.left * scaleX,
+							top: object.top * scaleY,
+							scaleX: object.scaleX * scaleX,
+							scaleY: object.scaleY * scaleY,
+						})
+						object.setCoords()
+					})
+
+					if (canvas.backgroundImage) {
+						canvas.backgroundImage.scaleX *= scaleX
+						canvas.backgroundImage.scaleY *= scaleY
+					}
+
+					canvas.setDimensions({ width, height })
+					canvas.calcOffset()
+					canvas.requestRenderAll()
+				}
+
+				this.canvasWidth = width
+				this.canvasHeight = height
+			})
 		},
 		cropImage() {
 			this.croppedImage = true
@@ -130,15 +158,10 @@ export default {
 					</h1>
 				</div>
 
-				<div class="text-center mt-50px text-hex-34383b">
+				<div class="w-full text-center mt-50px text-hex-34383b">
 					<!-- <div class="grid grid-rows-1 gap-y-10">
 						 -->
-					<div class="grid grid-cols-1 gap-y-10">
-						<div
-							class="w-full h-80"
-							:style="{ backgroundColor: color }"
-						></div>
-
+					<div class="w-full grid grid-cols-1 gap-y-10">
 						<div
 							class="flex flex-wrap items-center justify-between"
 						>
@@ -286,13 +309,14 @@ export default {
 								:event="changeColor"
 							/>
 						</div>
-						<Editor
-							ref="editor"
-							:key="canvasWidth"
-							class="border border-hex-000"
-							:canvas-width="canvasWidth"
-							:canvas-height="canvasHeight"
-						/>
+						<div ref="canvasContainer" class="canvas-container">
+							<Editor
+								ref="editor"
+								class="border border-hex-000"
+								:canvas-width="canvasWidth"
+								:canvas-height="canvasHeight"
+							/>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -304,5 +328,10 @@ export default {
 <style>
 * {
 	font-family: "Cairo", sans-serif;
+}
+
+.canvas-container {
+	width: 100%;
+	max-width: 1150px;
 }
 </style>

@@ -58,8 +58,10 @@ export default {
 	},
 	methods: {
 		start(...args) {
-			this.$refs.board.start(...args)
 			this.playing = true
+			this.$nextTick(() => {
+				this.$refs.board.start(...args)
+			})
 		},
 		async restart() {
 			this.playing = false
@@ -129,7 +131,7 @@ export default {
 				<Board
 					v-show="playing"
 					ref="board"
-					class="p-75px"
+					class="w-full"
 					:level="level"
 					@restart="restart"
 				/>

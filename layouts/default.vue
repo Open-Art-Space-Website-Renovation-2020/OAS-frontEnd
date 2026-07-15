@@ -1,5 +1,5 @@
 <template>
-	<div class="mt-20" :dir="$t('dir')">
+	<div :dir="$t('dir')">
 		<TopNavBar />
 		<div class="mt-20">
 			<Nuxt />
