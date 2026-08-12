@@ -26,7 +26,7 @@ export default async () => {
 		"New Game": "ابدا من جديدة",
 		level: "مستوى",
 		Age: "سنة",
-		about: "حول الصور",
+		about: "كيف نحن",
 		continue: "واصل",
 		arts: "العاب ورقية",
 		draw: "رسم",

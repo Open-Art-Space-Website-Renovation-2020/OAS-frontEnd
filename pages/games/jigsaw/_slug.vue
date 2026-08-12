@@ -5,7 +5,7 @@ export default {
 	async asyncData({ $axios, params }) {
 		const slug = params.slug
 		const detail_jigsaw = await $axios.$get(`/fapi/jigsaw/${slug}`)
-		const video_id = detail_jigsaw.video.split("?v=")[1]
+		const video_id = detail_jigsaw?.video?.split("?v=")[1]
 
 		const base_url = process.env.BASE_URL
 		return {
@@ -27,6 +27,8 @@ export default {
 			alert: false,
 			playing: false,
 			jigsawx: null,
+			canvasScale: 1,
+			resizeFrame: null,
 			ar_text: "",
 			en_text: "",
 			base_urls:
@@ -38,6 +40,15 @@ export default {
 	head: {
 		title: "Jigsaw Game | Open Art Space",
 	},
+	mounted() {
+		window.addEventListener("resize", this.scheduleCanvasResize)
+	},
+	destroyed() {
+		window.removeEventListener("resize", this.scheduleCanvasResize)
+		if (this.resizeFrame) {
+			window.cancelAnimationFrame(this.resizeFrame)
+		}
+	},
 	async created() {
 		this.ar_text = this.detail_jigsaw.ar_description
 		this.en_text = this.detail_jigsaw.eng_description
@@ -45,8 +56,22 @@ export default {
 		this.image = this.detail_jigsaw.image.file
 	},
 	methods: {
+		scheduleCanvasResize() {
+			if (this.resizeFrame) {
+				window.cancelAnimationFrame(this.resizeFrame)
+			}
+
+			this.resizeFrame = window.requestAnimationFrame(() => {
+				this.resizeFrame = null
+				const viewport = this.$refs.canvasViewport
+				if (viewport) {
+					this.canvasScale = Math.min(1, viewport.clientWidth / 940)
+				}
+			})
+		},
 		start() {
 			this.playing = true
+			this.$nextTick(this.scheduleCanvasResize)
 			const audio = new Audio("/audio/connect.wav")
 
 			const dali = new Image()
@@ -75,6 +100,24 @@ export default {
 					horizontalPiecesCount: this.horizontal,
 					verticalPiecesCount: this.vertical,
 				})
+
+				const puzzleOffset = {
+					x:
+						(canvas.width -
+							this.horizontal * canvas.pieceDiameter.x) /
+							2 -
+						canvas.pieceRadio.x,
+					y:
+						(canvas.height -
+							this.vertical * canvas.pieceDiameter.y) /
+							2 -
+						canvas.pieceRadio.y,
+				}
+				canvas.puzzle.pieces.forEach((piece) => {
+					piece.metadata.targetPosition.x += puzzleOffset.x
+					piece.metadata.targetPosition.y += puzzleOffset.y
+				})
+				canvas.puzzle.translate(puzzleOffset.x, puzzleOffset.y)
 
 				// canvas.shuffleColumns(1)
 				canvas.shuffleGrid()
@@ -203,11 +246,28 @@ export default {
 <template>
 	<div>
 		<section
-			class="-mt-20 pt-20 pb-12 flex flex-col items-center bg-purple-600 text-gray-600"
+			class="
+				-mt-20
+				pt-20
+				pb-12
+				flex flex-col
+				items-center
+				bg-purple-600
+				text-gray-600
+			"
 		>
 			<div
-				class="mb-4 flex flex-col items-center p-8 border-4 border-pink-500 bg-white rounded-3xl"
-				:class="[playing ? 'w-3/4' : 'w-3/4']"
+				class="
+					w-full
+					lg:w-10/11
+					mb-4
+					flex flex-col
+					items-center
+					p-8
+					border-4 border-pink-500
+					bg-white
+					rounded-3xl
+				"
 			>
 				<div class="ml-4 md:(mr-4 rtl:mr-0 ml-0) relative">
 					<img
@@ -216,7 +276,17 @@ export default {
 						loading="lazy"
 					/>
 					<h1
-						class="absolute left-0 ml-2 mt-12 top-0 rtl:(right-0 mr-7 mt-9) text-5xl"
+						class="
+							absolute
+							left-0
+							ml-2
+							mt-12
+							top-0
+							rtl:(right-0
+							mr-7
+							mt-9)
+							text-5xl
+						"
 					>
 						{{ $t("play") }}
 					</h1>
@@ -266,7 +336,17 @@ export default {
 								src="@/assets/img/button4.png"
 							/>
 							<h1
-								class="absolute left-0 ml-7 mt-10 top-0 rtl:(right-3 mr-10 mt-9) text-4xl"
+								class="
+									absolute
+									left-0
+									ml-7
+									mt-10
+									top-0
+									rtl:(right-3
+									mr-10
+									mt-9)
+									text-4xl
+								"
 							>
 								{{ $t("start") }}
 							</h1>
@@ -276,37 +356,55 @@ export default {
 
 				<div
 					v-else
-					class="relative flex flex-col items-center justify-center"
+					ref="canvasViewport"
+					class="jigsaw-viewport"
+					:style="{ height: `${740 * canvasScale}px` }"
 				>
 					<div
-						id="my-canvas"
-						class="z-30"
-						style="
-							border: 20px solid black;
-							border-image: url('/img/oas-frame.png') 65;
-							padding: 0px;
-						"
-					></div>
-					<div
-						v-if="level === 'one'"
-						style="padding: 10rem 10rem 15.2rem 10.2rem"
-						class="absolute border-2 border-black"
-					></div>
-					<div
-						v-else-if="level === 'two'"
-						style="padding: 12.6rem 12.6rem 17.6rem 12.6rem"
-						class="absolute border-2 border-black"
-					></div>
-					<div
-						v-else-if="level === 'three'"
-						style="padding: 15.1rem"
-						class="absolute border-2 border-black"
-					></div>
+						class="jigsaw-stage"
+						:style="{
+							transform: `translateX(-50%) scale(${canvasScale})`,
+						}"
+					>
+						<div
+							id="my-canvas"
+							class="z-30"
+							style="
+								border: 20px solid black;
+								border-image: url('/img/oas-frame.png') 65;
+								padding: 0px;
+							"
+						></div>
+						<div
+							v-if="level === 'one'"
+							style="padding: 10rem 10rem 15.2rem 10.2rem"
+							class="absolute border-2 border-black"
+						></div>
+						<div
+							v-else-if="level === 'two'"
+							style="padding: 12.6rem 12.6rem 17.6rem 12.6rem"
+							class="absolute border-2 border-black"
+						></div>
+						<div
+							v-else-if="level === 'three'"
+							style="padding: 15.1rem"
+							class="absolute border-2 border-black"
+						></div>
+					</div>
 				</div>
 
 				<div
 					v-if="playing"
-					class="flex items-end justify-between mt-8 text-black"
+					class="
+						grid grid-cols-2
+						gap-y-4
+						md:(grid-cols-4
+						gap-4)
+						items-end
+						justify-between
+						mt-8
+						text-black
+					"
 				>
 					<!-- SHOW ORIGINAL -->
 					<div
@@ -331,7 +429,15 @@ export default {
 							src="@/assets/img/button4.png"
 						/>
 						<h1
-							class="w-64 absolute left-7 rtl:(right-12) top-0 mt-10 text-2xl"
+							class="
+								w-64
+								absolute
+								left-7
+								rtl:(right-12)
+								top-0
+								mt-10
+								text-2xl
+							"
 						>
 							{{ $t("shuffle") }}
 						</h1>
@@ -346,7 +452,14 @@ export default {
 							src="@/assets/img/button4.png"
 						/>
 						<h1
-							class="w-20 absolute left-8 rtl:(right-12) bottom-12 text-2xl"
+							class="
+								w-20
+								absolute
+								left-8
+								rtl:(right-12)
+								bottom-12
+								text-2xl
+							"
 						>
 							{{ $t("shuffleGrid") }}
 						</h1>
@@ -361,7 +474,14 @@ export default {
 							src="@/assets/img/button4.png"
 						/>
 						<h1
-							class="w-20 absolute left-7 rtl:(right-12) bottom-12 text-2xl"
+							class="
+								w-20
+								absolute
+								left-7
+								rtl:(right-12)
+								bottom-12
+								text-2xl
+							"
 						>
 							{{ $t("shuffleColumns") }}
 						</h1>
@@ -374,7 +494,13 @@ export default {
 			</div>
 		</section>
 		<section
-			class="pt-20 flex flex-col items-center bg-yellow-300 text-gray-600"
+			class="
+				pt-20
+				flex flex-col
+				items-center
+				bg-yellow-300
+				text-gray-600
+			"
 		>
 			<div class="-mt-40">
 				<Triangle
@@ -388,10 +514,22 @@ export default {
 			</div>
 
 			<div
-				class="w-full md:w-10/11 mb-30 flex flex-col items-center p-6 mt-0 border-2 border-pink-500 bg-white rounded-3xl"
+				class="
+					w-full
+					md:w-10/11
+					mb-30
+					flex flex-col
+					items-center
+					p-6
+					mt-0
+					border-2 border-pink-500
+					bg-white
+					rounded-3xl
+				"
 			>
 				<div>
 					<Youtube
+						v-if="video_id"
 						:id="video_id"
 						class_name="h-100 w-full rounded-3xl"
 					/>
@@ -405,3 +543,23 @@ export default {
 		</section>
 	</div>
 </template>
+
+<style scoped>
+.jigsaw-viewport {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}
+
+.jigsaw-stage {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	display: flex;
+	width: 940px;
+	height: 740px;
+	align-items: center;
+	justify-content: center;
+	transform-origin: top center;
+}
+</style>

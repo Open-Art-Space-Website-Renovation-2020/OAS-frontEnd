@@ -195,7 +195,7 @@ export default {
 				></div>
 
 				<div v-else>
-					<p
+					<div
 						class="
 							mt-16
 							md:text-xl
@@ -206,7 +206,7 @@ export default {
 							leading-7
 						"
 						v-html="$t('dir') === 'ltr' ? en_text : ar_text"
-					></p>
+					></div>
 				</div>
 			</div>
 		</section>

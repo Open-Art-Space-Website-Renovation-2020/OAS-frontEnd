@@ -6,7 +6,7 @@ export default {
 	async asyncData({ $axios, params }) {
 		const slug = params.slug
 		const detail_puzzle = await $axios.$get(`/fapi/puzzle/${slug}`)
-		const video_id = detail_puzzle.video.split("?v=")[1]
+		const video_id = detail_puzzle?.video?.split("?v=")[1]
 
 		let init_horizontal, init_vertical, init_level
 		const puzzle = await Puzzle.query().search(slug).first()
@@ -156,6 +156,7 @@ export default {
 			>
 				<div>
 					<Youtube
+						v-if="video_id"
 						:id="video_id"
 						class_name="h-100 w-full rounded-3xl"
 					/>

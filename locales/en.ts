@@ -25,7 +25,7 @@ export default async () => {
 		"New Game": "New Game",
 		level: "Level",
 		Age: "years old",
-		about: "About Image",
+		about: "How we are",
 		continue: "Continue",
 		arts: "Arts",
 		draw: "Draw",

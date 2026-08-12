@@ -3,7 +3,7 @@ export default {
 	name: "Guess",
 	async asyncData({ $axios }) {
 		const guess = await $axios.$get(`/fapi/guess/`)
-		const video_id = guess.video.split("?v=")[1]
+		const video_id = guess?.video?.split("?v=")[1]
 		const base_url = process.env.BASE_URL
 		return {
 			guess,
@@ -376,6 +376,7 @@ export default {
 			>
 				<div>
 					<Youtube
+						v-if="video_id"
 						:id="video_id"
 						class_name="h-100 w-full rounded-3xl"
 					/>

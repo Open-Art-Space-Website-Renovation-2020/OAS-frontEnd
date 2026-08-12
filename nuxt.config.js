@@ -181,6 +181,7 @@ export default {
 	css: [
 		"vuesax/dist/vuesax.css",
 		"boxicons/css/boxicons.min.css",
+		"@/assets/css/fonts.css",
 		"@/assets/css/main.css",
 	],
 
@@ -227,7 +228,7 @@ export default {
 
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
 	axios: {
-		baseURL: "https://oas-backend.herokuapp.com", // Used as fallback if no runtime config is provided
+		baseURL: "https://api.openartspace.net", // Used as fallback if no runtime config is provided
 	},
 
 	publicRuntimeConfig: {
@@ -250,7 +251,7 @@ export default {
 	image: {
 		provider: "ipx",
 		domains: [
-			"https://oas-backend.herokuapp.com/",
+			"https://api.openartspace.net/",
 			"http://127.0.0.1:8000/",
 			"http://localhost:8000/",
 			"https://content.dropboxapi.com/",

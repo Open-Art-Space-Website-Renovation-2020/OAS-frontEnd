@@ -52,7 +52,7 @@ export default {
 							<nuxt-img
 								:src="puzzle.image.file"
 								loading="lazy"
-								class="bg-gray-300 h-full w-full rounded-lg shadow-md bg-cover bg-center"
+								class="bg-gray-300 h-full rounded-lg shadow-md object-cover bg-cover bg-center"
 								:alt="puzzle.eng_title + ' puzzle image'"
 							/>
 							<div

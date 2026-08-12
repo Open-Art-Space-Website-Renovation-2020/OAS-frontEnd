@@ -30,7 +30,7 @@
   font-family: 'Fokaha‌';
   font-style: normal;
   font-weight: normal;
-  font-display: swap;
+  font-display: block;
   src: url('~assets/fonts/Fokaha-Regular.woff2') format('woff2');
 }
 
@@ -38,7 +38,6 @@
   font-family: 'ARCO Regular';
   font-style: normal;
   font-weight: normal;
-  font-display: swap;
+  font-display: block;
   src: local('ARCO Regular'), url('~assets/fonts/ARCO-for-OSX.woff') format('woff');
   }
-
