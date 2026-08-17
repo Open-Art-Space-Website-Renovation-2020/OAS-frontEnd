@@ -12,10 +12,10 @@ export default {
 	data() {
 		return {
 			links: [
-				{ name: "facebook", icon: "bx bxl-facebook-square" },
-				{ name: "twitter", icon: "bx bxl-twitter" },
-				{ name: "youtube", icon: "bx bxl-youtube" },
-				{ name: "linkedin", icon: "bx bxl-linkedin" },
+				// { name: "facebook", icon: "bx bxl-facebook-square" },
+				// { name: "twitter", icon: "bx bxl-twitter" },
+				// { name: "youtube", icon: "bx bxl-youtube" },
+				// { name: "linkedin", icon: "bx bxl-linkedin" },
 			],
 		}
 	},
@@ -30,7 +30,17 @@ export default {
 		class="mt-20 pb-24 flex flex-col items-center text-gray-600 font-black"
 	>
 		<div
-			class="w-10/11 mb-4 flex flex-col items-center p-8 mt-0 border-4 border-pink-500 bg-white rounded-3xl"
+			class="
+				w-10/11
+				mb-4
+				flex flex-col
+				items-center
+				p-8
+				mt-0
+				border-4 border-pink-500
+				bg-white
+				rounded-3xl
+			"
 		>
 			<TextImage text="about us" />
 
@@ -40,12 +50,29 @@ export default {
 					v-html="$t('dir') === 'ltr' ? en_text : ar_text"
 				></p> -->
 				<p
-					class="mt-16 md:text-xl lg:text-2xl xl:text-3xl 2xl:text-6xl tracking-wider leading-7"
+					class="
+						rich-text
+						mt-16
+						md:text-xl
+						lg:text-2xl
+						xl:text-3xl
+						2xl:text-4xl
+						tracking-wider
+						leading-7
+					"
 					v-html="$t('dir') === 'ltr' ? en_text : ar_text"
 				></p>
 
 				<div
-					class="mt-10 flex flex-col md:flex-row space-y-6 md:space-y-0 items-center justify-around"
+					class="
+						mt-10
+						flex flex-col
+						md:flex-row
+						space-y-6
+						md:space-y-0
+						items-center
+						justify-around
+					"
 				>
 					<vs-button
 						v-for="(link, index) in links"
@@ -125,5 +152,63 @@ export default {
 .loader {
 	border-right-color: transparent;
 	animation: loader-rotate 0.7s linear infinite;
+}
+
+.rich-text ::v-deep p {
+	margin-bottom: 1em;
+}
+
+.rich-text ::v-deep h2,
+.rich-text ::v-deep h3,
+.rich-text ::v-deep h4 {
+	margin: 1em 0 0.5em;
+	font-weight: 700;
+	line-height: 1.25;
+}
+
+.rich-text ::v-deep h2 {
+	font-size: 1.5em;
+}
+
+.rich-text ::v-deep h3 {
+	font-size: 1.25em;
+}
+
+.rich-text ::v-deep ul,
+.rich-text ::v-deep ol {
+	margin: 0 0 1em 1.5em;
+}
+.rich-text ::v-deep ul li,
+.rich-text ::v-deep ol li {
+	margin-bottom: 1em;
+}
+
+.rich-text ::v-deep ul {
+	list-style: disc;
+}
+
+.rich-text ::v-deep ol {
+	list-style: decimal;
+}
+
+.rich-text ::v-deep a {
+	color: #0295da;
+	text-decoration: underline;
+}
+
+.rich-text ::v-deep blockquote {
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 4px solid #f2135d;
+}
+
+.rich-text ::v-deep strong,
+.rich-text ::v-deep b {
+	font-weight: 700;
+}
+
+.rich-text ::v-deep em,
+.rich-text ::v-deep i {
+	font-style: italic;
 }
 </style>

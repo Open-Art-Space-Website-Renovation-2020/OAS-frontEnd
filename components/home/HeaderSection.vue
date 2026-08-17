@@ -193,15 +193,16 @@ export default {
 						loader
 					"
 				></div>
-
 				<div v-else>
 					<div
 						class="
+							rich-text
+							center
 							mt-16
 							md:text-xl
 							lg:text-2xl
 							xl:text-3xl
-							2xl:text-6xl
+							2xl:text-4xl
 							tracking-wider
 							leading-7
 						"
@@ -216,5 +217,59 @@ export default {
 <style scoped>
 * {
 	font-family: "Cairo", sans-serif;
+}
+
+.rich-text ::v-deep p {
+	margin-bottom: 1em;
+}
+
+.rich-text ::v-deep h2,
+.rich-text ::v-deep h3,
+.rich-text ::v-deep h4 {
+	margin: 1em 0 0.5em;
+	font-weight: 700;
+	line-height: 1.25;
+}
+
+.rich-text ::v-deep h2 {
+	font-size: 1.5em;
+}
+
+.rich-text ::v-deep h3 {
+	font-size: 1.25em;
+}
+
+.rich-text ::v-deep ul,
+.rich-text ::v-deep ol {
+	margin: 0 0 1em 1.5em;
+}
+
+.rich-text ::v-deep ul {
+	list-style: disc;
+}
+
+.rich-text ::v-deep ol {
+	list-style: decimal;
+}
+
+.rich-text ::v-deep a {
+	color: #0295da;
+	text-decoration: underline;
+}
+
+.rich-text ::v-deep blockquote {
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 4px solid #f2135d;
+}
+
+.rich-text ::v-deep strong,
+.rich-text ::v-deep b {
+	font-weight: 700;
+}
+
+.rich-text ::v-deep em,
+.rich-text ::v-deep i {
+	font-style: italic;
 }
 </style>
