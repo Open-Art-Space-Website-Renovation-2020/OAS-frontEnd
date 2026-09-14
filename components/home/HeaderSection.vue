@@ -36,6 +36,10 @@ export default {
 		this.ar_text = response_home.items[0].ar_description
 		this.en_text = response_home.items[0].eng_description
 		this.home_title = response_home.items[0].title
+		this.$emit("about-loaded", {
+			ar_text: this.ar_text,
+			en_text: this.en_text,
+		})
 		for (const item of response) {
 			// images = [...images, `${this.base_url}${item.original_image.file}`]
 			images = [...images, item.original_image.file]
@@ -91,6 +95,7 @@ export default {
 						:key="index"
 						:title="word.name"
 						:image="word.image"
+						:class="{ 'word-gap': index === 3 || index === 6 }"
 					/>
 				</div>
 
@@ -106,7 +111,7 @@ export default {
 			<div
 				class="
 					w-10/11
-					lg:w-7/11
+					lg:w-5/11
 					p-8
 					mt-16
 					flex flex-col
@@ -147,70 +152,6 @@ export default {
 				</p>
 			</div>
 		</section>
-
-		<section
-			class="
-				mt-20
-				pb-24
-				flex flex-col
-				items-center
-				text-gray-600
-				bg-hex-0295da
-			"
-		>
-			<div class="-mt-24">
-				<Triangle
-					text="about"
-					ar_y="22.051079"
-					ar_x="87.844219"
-					en_y="20.051079"
-					en_x="14.844219"
-				/>
-			</div>
-
-			<div
-				class="
-					w-10/11
-					mb-4
-					flex flex-col
-					items-center
-					p-8
-					mt-0
-					border-4 border-pink-500
-					bg-white
-					rounded-3xl
-				"
-			>
-				<TextImage text="about" />
-				<div
-					v-if="loading"
-					class="
-						w-12
-						h-12
-						mt-10
-						border-4 border-hex-f2135d
-						rounded-full
-						loader
-					"
-				></div>
-				<div v-else>
-					<div
-						class="
-							rich-text
-							center
-							mt-16
-							md:text-xl
-							lg:text-2xl
-							xl:text-3xl
-							2xl:text-4xl
-							tracking-wider
-							leading-7
-						"
-						v-html="$t('dir') === 'ltr' ? en_text : ar_text"
-					></div>
-				</div>
-			</div>
-		</section>
 	</div>
 </template>
 
@@ -219,57 +160,7 @@ export default {
 	font-family: "Cairo", sans-serif;
 }
 
-.rich-text ::v-deep p {
-	margin-bottom: 1em;
-}
-
-.rich-text ::v-deep h2,
-.rich-text ::v-deep h3,
-.rich-text ::v-deep h4 {
-	margin: 1em 0 0.5em;
-	font-weight: 700;
-	line-height: 1.25;
-}
-
-.rich-text ::v-deep h2 {
-	font-size: 1.5em;
-}
-
-.rich-text ::v-deep h3 {
-	font-size: 1.25em;
-}
-
-.rich-text ::v-deep ul,
-.rich-text ::v-deep ol {
-	margin: 0 0 1em 1.5em;
-}
-
-.rich-text ::v-deep ul {
-	list-style: disc;
-}
-
-.rich-text ::v-deep ol {
-	list-style: decimal;
-}
-
-.rich-text ::v-deep a {
-	color: #0295da;
-	text-decoration: underline;
-}
-
-.rich-text ::v-deep blockquote {
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 4px solid #f2135d;
-}
-
-.rich-text ::v-deep strong,
-.rich-text ::v-deep b {
-	font-weight: 700;
-}
-
-.rich-text ::v-deep em,
-.rich-text ::v-deep i {
-	font-style: italic;
+.word-gap {
+	margin-inline-start: 0.22em;
 }
 </style>

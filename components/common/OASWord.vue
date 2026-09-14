@@ -12,15 +12,13 @@ export default class OASWordComponent extends Vue {
 	<div
 		:style="[
 			$t('dir') === 'ltr'
-				? { fontFamily: 'ARCO Regular' }
+				? { fontFamily: 'Cairo' }
 				: { fontFamily: 'Fokaha‌' },
 		]"
 		class="
 			text-5xl
 			md:text-8xl
 			lg:text-9xl
-			xl:text-10xl
-			2xl:text-10xl
 			font-extrabold
 			uppercase
 			select-none
@@ -29,8 +27,19 @@ export default class OASWordComponent extends Vue {
 	>
 		<span
 			:style="{ 'background-image': 'url(' + image + ')' }"
-			class="bg-clip-text bg-gray-300 bg-cover rtl:bg-contain"
+			class="
+				wordmark-text
+				bg-clip-text bg-gray-300 bg-cover
+				rtl:bg-contain
+			"
 			>{{ title }}</span
 		>
 	</div>
 </template>
+
+<style scoped>
+.wordmark-text {
+	-webkit-text-stroke: clamp(0.25px, 0.035vw, 0.5px) #6b7280;
+	paint-order: stroke fill;
+}
+</style>

@@ -6,58 +6,58 @@ export default class GameSectionComponent extends Vue {
 	links: object[] = [
 		{
 			name: "puzzle",
-			color: "ffcb02",
+			color: "#00afef",
 			route: "/games/puzzles/",
-			img: "/img/puzzle_logo.jpg",
+			img: "/img/home-games/puzzle.png",
 		},
 		{
 			name: "jigsaw",
-			color: "0295da",
+			color: "#ffcc2a",
 			route: "/games/jigsaw/",
-			img: "/img/jigsaw_logo.jpg",
+			img: "/img/home-games/jigsaw.png",
 		},
 		{
 			name: "card",
-			color: "eb018c",
+			color: "#ec278f",
 			route: "/games/card/",
-			img: "/img/card_logo.jpg",
-		},
-		{
-			name: "guess",
-			color: "a6ce39",
-			route: "/games/guess/",
-			img: "/img/guess_logo.jpg",
-		},
-		{
-			name: "simon",
-			color: "eb018c",
-			route: "/games/colors/",
-			img: "/img/simon_logo.jpg",
+			img: "/img/home-games/memory-card.png",
 		},
 		{
 			name: "arts",
-			color: "ffcb02",
+			color: "#a7919e",
 			route: "/arts/",
-			img: "/img/arts_logo.jpg",
+			img: "/img/home-games/paper-games.png",
+		},
+		{
+			name: "guess",
+			color: "#a53792",
+			route: "/games/guess/",
+			img: "/img/home-games/guess-the-image.png",
 		},
 		{
 			name: "draw",
-			color: "0295da",
+			color: "#a8cf46",
 			route: "/draw/",
-			img: "/img/draw_logo.jpg",
+			img: "/img/home-games/draw.png",
+		},
+		{
+			name: "simon",
+			color: "#f48750",
+			route: "/games/colors/",
+			img: "/img/home-games/color-game.png",
 		},
 		{
 			name: "blog",
-			color: "a6ce39",
+			color: "#51a7b0",
 			route: "/",
-			img: "/img/coming_soon_logo.jpg",
+			img: "/img/home-games/blog.png",
 		},
 	]
 }
 </script>
 
 <template>
-	<section class="flex flex-col items-center pb-24 bg-hex-e5e5e5">
+	<section class="mt-20 flex flex-col items-center pb-24 bg-hex-0295da">
 		<div class="-mt-24">
 			<Triangle
 				text="games"
@@ -69,26 +69,64 @@ export default class GameSectionComponent extends Vue {
 		</div>
 
 		<div
-			clssass="pb-6 flex flex-col items-center justify-center md:grid md:grid-cols-2 md:gap-y-6 text-white text-3xl"
-			class="pb-6 grid grid-rows-1 gap-y-10 md:(grid-cols-2 gap-30) text-white text-3xl"
+			class="
+				w-10/11
+				max-w-7xl
+				pb-6
+				flex flex-wrap
+				justify-center
+				gap-x-10 gap-y-24
+				lg:gap-x-14 lg:gap-y-32
+				text-white
+			"
 		>
 			<nuxt-link
 				v-for="(link, index) in links"
 				:key="index"
 				:to="link.route"
-				:class="`h-80
-				w-80
-				md:w-75
-				lg:w-100
-				flex
-				flex-col
-				items-center
-				justify-center
-				rounded-xl
-				bg-hex-${link.color}`"
+				class="
+					game-card
+					group
+					w-64
+					sm:w-72
+					flex flex-col
+					items-center
+					focus:outline-none
+				"
+				:aria-label="$t(link.name)"
 			>
-				<img class="h-6/9 w-7/8 mb-5 rounded-lg" :src="link.img" />
-				<span>{{ $t(`${link.name}`) }}</span>
+				<div class="w-full h-64 sm:h-72 overflow-hidden bg-hex-cfff4e">
+					<img
+						class="
+							block
+							w-full
+							h-full
+							object-cover
+							transition-transform
+							duration-300
+							group-hover:scale-105
+						"
+						:src="link.img"
+						:alt="`${$t(link.name)} illustration`"
+					/>
+				</div>
+				<span
+					class="
+						game-label
+						w-11/12
+						h-24
+						mt-10
+						px-3
+						flex
+						items-center
+						justify-center
+						text-center text-2xl
+						sm:text-3xl
+					"
+					:style="{ backgroundColor: link.color }"
+				>
+					{{ $t(link.name) }}
+				</span>
 			</nuxt-link>
 		</div>
 	</section>
@@ -97,5 +135,16 @@ export default class GameSectionComponent extends Vue {
 <style scoped>
 * {
 	font-family: "Cairo", sans-serif;
+}
+
+.game-card:hover .game-label,
+.game-card:focus .game-label {
+	filter: brightness(1.06);
+}
+
+.game-label {
+	font-weight: 900;
+	line-height: 1.15;
+	transition: filter 0.2s ease;
 }
 </style>

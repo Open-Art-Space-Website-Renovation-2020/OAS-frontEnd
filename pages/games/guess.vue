@@ -273,7 +273,7 @@ export default {
 					<div class="flex flex-col items-center">
 						<img
 							class="h-full w-full max-w-[300px] mb-6 rounded-xl"
-							src="/img/guess_logo.jpg"
+							src="/img/home-games/guess-the-image.png"
 						/>
 						<div
 							class="mr-4 relative select-none cursor-pointer"
@@ -468,9 +468,9 @@ body {
 }
 
 @media screen and (min-width: 500px) {
-	#app {
+	/* #app {
 		width: 450px !important;
-	}
+	} */
 }
 
 #app .displayPanel .slot_wrapper {

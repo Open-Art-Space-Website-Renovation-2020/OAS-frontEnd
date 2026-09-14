@@ -29,7 +29,7 @@ export default {
 }
 </script>
 <template>
-	<section class="flex flex-col items-center bg-hex-0295da">
+	<section class="pb-24 flex flex-col items-center bg-hex-e5e5e5">
 		<div class="-mt-24">
 			<Triangle
 				text="gallery"
@@ -43,17 +43,38 @@ export default {
 			<div class="flex flex-col items-center mb-3">
 				<div
 					v-if="loading"
-					class="w-12 h-12 mt-10 border-4 border-hex-f2135d rounded-full loader"
+					class="
+						w-12
+						h-12
+						mt-10
+						border-4 border-hex-f2135d
+						rounded-full
+						loader
+					"
 				></div>
 
 				<div
 					v-else
-					class="mb-12 px-3 grid grid-rows-1 gap-y-10 md:(grid-cols-3 gap-6)"
+					class="
+						mb-12
+						px-3
+						grid grid-rows-1
+						gap-y-10
+						md:(grid-cols-3
+						gap-6)
+					"
 				>
 					<div
 						v-for="(photo, index) in photos"
 						:key="index"
-						class="mx-auto max-w-lg flex flex-col justify-center items-center cursor-pointer"
+						class="
+							mx-auto
+							max-w-lg
+							flex flex-col
+							justify-center
+							items-center
+							cursor-pointer
+						"
 						@click="open_dialog(photo.image.file)"
 					>
 						<img

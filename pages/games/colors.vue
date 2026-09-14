@@ -65,7 +65,7 @@ export default {
 					<div class="flex flex-col items-center">
 						<img
 							class="h-full w-full max-w-[300px] mb-6 rounded-xl"
-							src="/img/simon_logo.jpg"
+							src="/img/home-games/color-game.png"
 							spinner-color="white"
 						/>
 						<div
@@ -144,10 +144,10 @@ export default {
 					rounded-3xl
 				"
 			>
-				<Youtube
+				<!-- <Youtube
 					id="oDhY1lpLhu4"
 					class_name="h-100 w-full rounded-3xl"
-				/>
+				/> -->
 				<UploadArtLink />
 			</div>
 		</section>

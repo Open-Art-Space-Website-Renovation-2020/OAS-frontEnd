@@ -11,7 +11,18 @@ export default class OASWordComponent extends Vue {
 	<div class="ml-4 md:(mr-4 rtl:mr-0 ml-0) relative">
 		<img class="w-36 h-36" src="@/assets/img/bg2.png" loading="lazy" />
 		<h1
-			class="absolute left-0 ml-2 mt-4 top-0 rtl:(right-0 md:mr-5 mt-0) text-5xl"
+			class="
+				absolute
+				left-0
+				text-center
+				ml-2
+				mt-4
+				top-0
+				rtl:(right-0
+				md:mr-5
+				mt-0)
+				text-3xl
+			"
 		>
 			{{ $t(text) }}
 		</h1>

@@ -22,8 +22,8 @@ export default class ImagePanelComponent extends Vue {
 	position: relative;
 	top: 7%;
 	margin: 0 auto;
-	height: 35vh;
-	width: 35vh;
+	height: 70vh;
+	width: 70vh;
 	padding: 2px;
 	background: #eaeaea;
 }
