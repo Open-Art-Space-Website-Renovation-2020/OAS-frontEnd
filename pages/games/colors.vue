@@ -144,10 +144,7 @@ export default {
 					rounded-3xl
 				"
 			>
-				<!-- <Youtube
-					id="oDhY1lpLhu4"
-					class_name="h-100 w-full rounded-3xl"
-				/> -->
+				<Youtube class_name="h-100 w-full rounded-3xl" />
 				<UploadArtLink />
 			</div>
 		</section>

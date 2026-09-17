@@ -3,7 +3,7 @@ import { Component, Vue, Prop } from "vue-property-decorator"
 
 @Component
 export default class YoutubeComponent extends Vue {
-	@Prop(String) readonly id: string | undefined
+	@Prop({ type: String, default: "tj6NdgY6Rj0" }) readonly id!: string
 	@Prop(String) readonly class_name: string | undefined
 }
 </script>

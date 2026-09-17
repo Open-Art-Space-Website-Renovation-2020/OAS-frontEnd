@@ -527,17 +527,16 @@ export default {
 					rounded-3xl
 				"
 			>
-				<div>
-					<Youtube
-						v-if="video_id"
-						:id="video_id"
-						class_name="h-100 w-full rounded-3xl"
-					/>
-					<p
+				<!-- <div> -->
+				<Youtube
+					:id="video_id"
+					class_name="h-100 w-full rounded-3xl"
+				/>
+				<!-- <p
 						class="mt-16 tracking-wider leading-7"
 						v-html="$t('dir') === 'ltr' ? en_text : ar_text"
 					></p>
-				</div>
+				</div> -->
 				<UploadArtLink />
 			</div>
 		</section>

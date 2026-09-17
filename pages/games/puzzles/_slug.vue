@@ -78,10 +78,28 @@ export default {
 <template>
 	<div>
 		<section
-			class="-mt-20 pt-20 pb-12 flex flex-col items-center bg-purple-600 text-gray-600"
+			class="
+				-mt-20
+				pt-20
+				pb-12
+				flex flex-col
+				items-center
+				bg-purple-600
+				text-gray-600
+			"
 		>
 			<div
-				class="w-full lg:w-10/11 mb-4 flex flex-col items-center p-8 border-4 border-pink-500 bg-white rounded-3xl"
+				class="
+					w-full
+					lg:w-10/11
+					mb-4
+					flex flex-col
+					items-center
+					p-8
+					border-4 border-pink-500
+					bg-white
+					rounded-3xl
+				"
 			>
 				<div class="ml-4 md:(mr-4 rtl:mr-0 ml-0) relative">
 					<img
@@ -90,7 +108,17 @@ export default {
 						loading="lazy"
 					/>
 					<h1
-						class="absolute left-0 ml-2 mt-12 top-0 rtl:(right-0 mr-7 mt-9) text-5xl"
+						class="
+							absolute
+							left-0
+							ml-2
+							mt-12
+							top-0
+							rtl:(right-0
+							mr-7
+							mt-9)
+							text-5xl
+						"
 					>
 						{{ $t("play") }}
 					</h1>
@@ -138,7 +166,13 @@ export default {
 			</div>
 		</section>
 		<section
-			class="pt-20 flex flex-col items-center bg-yellow-300 text-gray-600"
+			class="
+				pt-20
+				flex flex-col
+				items-center
+				bg-yellow-300
+				text-gray-600
+			"
 		>
 			<div class="-mt-40">
 				<Triangle
@@ -152,15 +186,25 @@ export default {
 			</div>
 
 			<div
-				class="w-full md:w-10/11 mb-30 flex flex-col items-center p-6 mt-0 border-2 border-pink-500 bg-white rounded-3xl"
+				class="
+					w-full
+					md:w-10/11
+					mb-30
+					flex flex-col
+					items-center
+					p-6
+					mt-0
+					border-2 border-pink-500
+					bg-white
+					rounded-3xl
+				"
 			>
-				<div>
-					<Youtube
-						v-if="video_id"
-						:id="video_id"
-						class_name="h-100 w-full rounded-3xl"
-					/>
-					<p
+				<!-- <div> -->
+				<Youtube
+					:id="video_id"
+					class_name="h-100 w-full rounded-3xl"
+				/>
+				<!-- <p
 						class="mt-16 tracking-wider leading-7"
 						v-html="
 							$t('dir') === 'ltr'
@@ -168,7 +212,7 @@ export default {
 								: detail_puzzle.ar_description
 						"
 					></p>
-				</div>
+				</div> -->
 				<UploadArtLink />
 			</div>
 		</section>
